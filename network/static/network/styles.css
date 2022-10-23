@@ -1,0 +1,102 @@
+.body {
+    margin: 2rem;
+}
+
+.header {
+    margin: auto;
+    width: 50%;
+    text-align: left;
+}
+
+.followers-info {
+    display: flex;
+    font-weight: bold;
+    font-size: large;
+}
+
+.followers-info p {
+    margin: 1rem 2rem 0 0;
+}
+
+.btn-primary {
+    margin-top: 1rem;
+}
+
+.pagination {
+    margin: auto;
+    margin-top: 2rem;
+    width: fit-content;
+    text-align: center;
+}
+
+.post-container {
+    margin: 2rem auto;
+    padding: 1rem;
+    width: 50%;
+    border: 2px solid rgb(196, 196, 196);
+    border-radius: 10px;
+}
+
+.post-username {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    width: fit-content;
+}
+
+.edit-post {
+    margin-left: 3rem;
+}
+
+.text {
+    padding: 1.5rem;
+    background-color: rgba(175, 175, 252, 0.188);
+    border-radius: 10px;
+}
+
+.like-area {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    font-weight: 500;
+}
+
+.num-likes {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+    width: 3rem;
+
+}
+
+.thumb-container {
+    padding: 0 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    width: 6rem;
+    cursor: pointer;
+
+}
+
+.thumb-container i {
+    margin-left: 10px;
+
+}
+
+.fa-thumbs-up {
+    color: blue;
+}
+
+.fa-thumbs-down {
+    color: rgb(200, 5, 5);
+}
+
+.fa-heart {
+    color: red;
+}
+
+.hidden {
+    display: none;
+}

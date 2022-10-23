@@ -1,0 +1,81 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="header">
+        <h1>All Posts</h1>
+        {% if request.user.is_authenticated%}
+        <div id="create-post">
+            <h2>New Post</h2>
+            <form id="new-post-form" action="/create_post" method="post">
+                <textarea name="new-post" class="form-control" id="new-post" rows="3"></textarea>
+                <input type="submit" class="btn btn-primary">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+
+    <div id="all-posts" class="all-posts-container">
+        {% for post in page_obj %}
+            <div class="post-container">
+                <div class="post-header">
+                    <a href="{% url 'profile' post.user.username %}" class="post-username">{{ post.user.username }}</a>
+                </div>
+                <div id="text-{{ post.id }}-container">
+                    <p id="text-{{ post.id }}" class="text">{{ post.text }}</p>
+                </div>
+                <p>{{ post.created_at }}</p>
+                <div class="like-area">
+                    <div class="num-likes">
+                        <i data-post-id="{{ post.id }}" id="heart-{{ post.id }}" class="fa-solid fa-heart"></i>
+                        <p id="num-likes-{{ post.id }}">{{ post.post_likes.all|length }}</p>    
+                    </div>
+                    <div class="thumb-container hidden" data-post-id="{{ post.id }}" data-type="like" id="like-{{ post.id }}">
+                        <p>Like</p>
+                        <i class="fa-regular fa-thumbs-up thumb"></i>    
+                    </div>
+                    <div class="thumb-container hidden" data-post-id="{{ post.id }}" data-type="unlike" id="unlike-{{ post.id }}">
+                        <p>Unlike</p>
+                        <i class="fa-regular fa-thumbs-down thumb"></i>    
+                    </div>
+                    {% if post.user == request.user %}
+                        <button data-post-id="{{ post.id }}" class="edit-post btn btn-outline-info">Edit post</button>
+                    {% endif %}
+                    
+                    <div id="like-info-{{ post.id }}" data-post-id="{{ post.id }}" class="like-info">
+                        {% for like in post.post_likes.all %}
+                            {% if like in request.user.user_likes.all %}
+                                <p></p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <li class="page-item"><span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span></li>
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/network.js' %}"></script>
+    <script src="https://kit.fontawesome.com/0c5b26dd88.js" crossorigin="anonymous"></script>
+{% endblock %}
